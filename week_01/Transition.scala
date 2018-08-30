@@ -23,8 +23,9 @@ def transition(s: State): State = {
 val afterFirstBubble = {
   Stream
     .iterate(initialState)(transition)
-    .dropWhile { case State(_, elemC, _) => elemC.nonEmpty }
+    .dropWhile(_.elemC.nonEmpty)
     .head
     .resultQ
     .toList
 }
+
