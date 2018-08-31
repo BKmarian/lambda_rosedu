@@ -59,7 +59,7 @@ def transition(s: State): State = {
 val trappedWater = {
   Stream
     .iterate(initialState)(transition)
-    .dropWhile { case State(_, _, elems, _) => elems.nonEmpty }
+    .dropWhile(_.elems.nonEmpty)
     .head
     .runningSum
 }
