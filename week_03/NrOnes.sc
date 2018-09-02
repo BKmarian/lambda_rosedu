@@ -7,5 +7,5 @@ def nrOnes(x: Int): Int = {
 }
 
 def nrOnes2(x: Int): Int = {
-  Stream.iterate(x) { a => a & (a-1)}.takeWhile(_ > 0).length
+  Stream.iterate(x) { a => a & (a-1) }.takeWhile(_ > 0).length
 }
