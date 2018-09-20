@@ -14,9 +14,7 @@ val inputList: List[Int] = List(-7, 1, 5, 2, -4, 3, 0, -1, -7, -9, -8)
 val slidingWindowSize: Int = 3
 
 val tupleList: List[(Int,Int)] = inputList.zipWithIndex
-
 val firstBatch: List[(Int,Int)] = tupleList.take(slidingWindowSize)
-
 val restOfList: List[(Int,Int)] = tupleList.drop(slidingWindowSize)
 
 val emptySlidingWindow: SlidingWindow = SlidingWindow(PriorityQueue.empty[SWItem](Ordering.by(_.v)), MMap.empty[Int, SWItem])
@@ -41,9 +39,7 @@ val result = restOfList.zipWithIndex.scanLeft((initialSlidingWindow, firstMax)) 
   accSlidingWindow.pq.enqueue(newItem)
   accSlidingWindow.hm(rightIndex) = newItem
   accSlidingWindow.hm(leftIndex).expired = true
+  accSlidingWindow.hm.remove(leftIndex)
   val lastState = Stream.iterate(accSlidingWindow) { sw => { if (sw.pq.head.expired) { sw.pq.dequeue; sw } else sw }}.dropWhile(_.pq.head.expired).head
-  println(lastState == accSlidingWindow)
-  println(lastState)
-  println(accSlidingWindow)
   (lastState, lastState.pq.head.v)
 }}.map(_._2)
